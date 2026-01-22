@@ -28,6 +28,7 @@ final class DatabaseSeeder extends Seeder
         $this->call([
             CategorySeeder::class,
             CollectionSeeder::class,
+            AttributeSeeder::class,
         ]);
     }
 }
