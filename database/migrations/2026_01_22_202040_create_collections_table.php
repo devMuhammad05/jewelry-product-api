@@ -15,6 +15,13 @@ return new class extends Migration
     {
         Schema::create('collections', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('parent_id')->nullable()->constrained('collections')->onDelete('cascade');
+            $table->string('name');
+            $table->string('slug')->unique();
+            $table->text('description')->nullable();
+            $table->string('hero_image')->nullable();
+            $table->boolean('is_featured')->default(false)->index();
+            $table->integer('position')->default(0);
             $table->timestamps();
         });
     }
