@@ -4,24 +4,27 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
 
 final class Category extends Model
 {
-    /** @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Product, $this> */
-    public function products(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    /** @return BelongsToMany<Product, $this> */
+    public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class, 'category_products');
     }
 
-    /** @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Category, $this> */
-    public function parent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    /** @return BelongsTo<Category, $this> */
+    public function parent(): BelongsTo
     {
         return $this->belongsTo(self::class, 'parent_id');
     }
 
-    /** @return \Illuminate\Database\Eloquent\Relations\HasMany<Category, $this> */
-    public function children(): \Illuminate\Database\Eloquent\Relations\HasMany
+    /** @return HasMany<Category, $this> */
+    public function children(): HasMany
     {
         return $this->hasMany(self::class, 'parent_id');
     }
