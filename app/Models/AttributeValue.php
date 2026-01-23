@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Database\Factories\AttributeValueFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 final class AttributeValue extends Model
 {
-    /** @use HasFactory<\Database\Factories\AttributeValueFactory> */
+    /** @use HasFactory<AttributeValueFactory> */
     use HasFactory;
 
     /** @return BelongsTo<Attribute, $this> */

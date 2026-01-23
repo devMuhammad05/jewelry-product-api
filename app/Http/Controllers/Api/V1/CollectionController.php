@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1;
 
+use Illuminate\Http\Request;
 use App\Actions\GetCollectionProductsAction;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Resources\Api\V1\AttributeResource;
@@ -35,7 +36,7 @@ final class CollectionController extends ApiController
     /**
      * Display the specified collection by slug.
      */
-    public function show(string $slug, GetCollectionProductsAction $action): JsonResponse
+    public function show(string $slug, GetCollectionProductsAction $action, Request $request): JsonResponse
     {
         $collection = QueryBuilder::for(Collection::class)
             ->where('slug', $slug)
@@ -46,7 +47,7 @@ final class CollectionController extends ApiController
             return $this->errorResponse('Collection not found.', 404);
         }
 
-        $result = $action->execute($collection, request()->input('per_page', 24));
+        $result = $action->execute($collection, $request->input('per_page', 24));
 
         return $this->successResponse(
             'Collection details retrieved successfully.',

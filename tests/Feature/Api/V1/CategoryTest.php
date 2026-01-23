@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Api\V1;
 
+use App\Models\Collection;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -58,7 +59,7 @@ describe('Category API', function () {
 
     test('it can show a category with its relevant collections', function () {
         $category = Category::factory()->create();
-        $collection = \App\Models\Collection::factory()->create();
+        $collection = Collection::factory()->create();
         $product = Product::factory()->create();
 
         $category->products()->attach($product);

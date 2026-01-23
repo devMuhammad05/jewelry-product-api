@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Database\Factories\ProductFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -49,9 +50,10 @@ final class Product extends Model
     /**
      * Scope a query to only include products in a specific collection.
      */
-    public function scopeForCollection(Builder $query, int $collectionId): Builder
+    #[Scope]
+    protected function forCollection(Builder $query, int $collectionId): Builder
     {
-        return $query->whereHas('collections', function ($q) use ($collectionId) {
+        return $query->whereHas('collections', function (\Illuminate\Contracts\Database\Query\Builder $q) use ($collectionId) {
             $q->where('collections.id', $collectionId);
         });
     }
@@ -59,9 +61,10 @@ final class Product extends Model
     /**
      * Scope a query to only include products in a specific category.
      */
-    public function scopeForCategory(Builder $query, int $categoryId): Builder
+    #[Scope]
+    protected function forCategory(Builder $query, int $categoryId): Builder
     {
-        return $query->whereHas('categories', function ($q) use ($categoryId) {
+        return $query->whereHas('categories', function (\Illuminate\Contracts\Database\Query\Builder $q) use ($categoryId) {
             $q->where('categories.id', $categoryId);
         });
     }
@@ -69,9 +72,10 @@ final class Product extends Model
     /**
      * Scope a query to filter products by attribute value slugs.
      */
-    public function scopeWithAttributeValues(Builder $query, array $valueSlugs): Builder
+    #[Scope]
+    protected function withAttributeValues(Builder $query, array $valueSlugs): Builder
     {
-        return $query->whereHas('attributeValues', function ($q) use ($valueSlugs) {
+        return $query->whereHas('attributeValues', function (\Illuminate\Contracts\Database\Query\Builder $q) use ($valueSlugs) {
             $q->whereIn('slug', $valueSlugs);
         });
     }

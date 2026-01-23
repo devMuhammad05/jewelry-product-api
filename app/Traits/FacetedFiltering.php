@@ -32,7 +32,7 @@ trait FacetedFiltering
                         // In a more advanced version, we would scope this further
                     }]);
             }])
-            ->whereHas('values', function ($query) use ($attributeValueIds) {
+            ->whereHas('values', function (\Illuminate\Contracts\Database\Query\Builder $query) use ($attributeValueIds) {
                 $query->whereIn('id', $attributeValueIds);
             })
             ->get();

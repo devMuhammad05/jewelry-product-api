@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -37,26 +39,26 @@ final class User extends Authenticatable
         'remember_token',
     ];
 
-    /** @return \Illuminate\Database\Eloquent\Relations\HasMany<Cart> */
-    public function carts(): \Illuminate\Database\Eloquent\Relations\HasMany
+    /** @return HasMany<Cart, $this> */
+    public function carts(): HasMany
     {
         return $this->hasMany(Cart::class);
     }
 
-    /** @return \Illuminate\Database\Eloquent\Relations\HasMany<Wishlist> */
-    public function wishlists(): \Illuminate\Database\Eloquent\Relations\HasMany
+    /** @return HasMany<Wishlist, $this> */
+    public function wishlists(): HasMany
     {
         return $this->hasMany(Wishlist::class);
     }
 
-    /** @return \Illuminate\Database\Eloquent\Relations\HasOne<Wishlist> */
-    public function defaultWishlist(): \Illuminate\Database\Eloquent\Relations\HasOne
+    /** @return HasOne<Wishlist, $this> */
+    public function defaultWishlist(): HasOne
     {
         return $this->hasOne(Wishlist::class)->where('is_default', true);
     }
 
-    /** @return \Illuminate\Database\Eloquent\Relations\HasOne<Cart> */
-    public function activeCart(): \Illuminate\Database\Eloquent\Relations\HasOne
+    /** @return HasOne<Cart, $this> */
+    public function activeCart(): HasOne
     {
         return $this->hasOne(Cart::class)->where('status', 'Active');
     }
