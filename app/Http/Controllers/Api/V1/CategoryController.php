@@ -28,7 +28,7 @@ final class CategoryController extends ApiController
     {
         $categories = QueryBuilder::for(Category::class)
             ->whereNull('parent_id')
-            ->allowedIncludes(['children', 'products'])
+            ->allowedIncludes(['children', 'products', 'products.collections'])
             ->orderBy('position')
             ->get();
 
@@ -53,25 +53,25 @@ final class CategoryController extends ApiController
             $query->where('categories.id', $category->id);
         });
 
-        // Get facets for this category
+        // Apply dynamic attribute-based filters
+        $request = request();
+        foreach ($request->query('filter', []) as $attributeSlug => $values) {
+            // Convert comma-separated values to array
+            $valueArray = is_array($values) ? $values : explode(',', $values);
+
+            $productQuery->whereHas('attributeValues', function ($query) use ($valueArray) {
+                $query->whereIn('slug', $valueArray);
+            });
+        }
+
+        // Get facets AFTER applying filters (for dynamic facet counts)
         $facets = $this->getFacets($productQuery);
 
-        // Apply filters and includes
+        // Apply includes and pagination
         $products = QueryBuilder::for($productQuery)
-            ->allowedIncludes(['variants'])
-            ->allowedFilters([
-                AllowedFilter::callback('metal', function ($query, $value) {
-                    $query->whereHas('attributeValues', function ($q) use ($value) {
-                        $q->where('slug', $value);
-                    });
-                }),
-                AllowedFilter::callback('stone_shape', function ($query, $value) {
-                    $query->whereHas('attributeValues', function ($q) use ($value) {
-                        $q->where('slug', $value);
-                    });
-                }),
-            ])
-            ->get();
+            ->allowedIncludes(['variants', 'attributeValues', 'images'])
+            ->allowedSorts(['name', 'base_price', 'created_at'])
+            ->paginate($request->input('per_page', 24));
 
         // Get relevant collections (collections that have products in this category)
         $collections = Collection::whereHas('products.categories', function ($query) use ($category) {
@@ -85,6 +85,12 @@ final class CategoryController extends ApiController
                 'products' => ProductResource::collection($products),
                 'collections' => CollectionResource::collection($collections),
                 'facets' => AttributeResource::collection($facets),
+                'meta' => [
+                    'current_page' => $products->currentPage(),
+                    'last_page' => $products->lastPage(),
+                    'per_page' => $products->perPage(),
+                    'total' => $products->total(),
+                ],
             ]
         );
     }

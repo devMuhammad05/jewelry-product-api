@@ -26,12 +26,9 @@ final class CategoryResource extends JsonResource
             'image_url' => $this->image_url,
             'position' => $this->position,
             'parent_id' => $this->parent_id,
-            'children' => $this->whenLoaded('children', fn () => CategoryResource::collection($this->children)),
-            'products' => $this->whenLoaded('products', fn () => ProductResource::collection($this->products)),
+            'children' => $this->whenLoaded('children', fn() => CategoryResource::collection($this->children)),
+            'products' => $this->whenLoaded('products', fn() => ProductResource::collection($this->products)),
             'products_count' => $this->whenCounted('products'),
-
-            // 'created_at' => $this->created_at,
-            // 'updated_at' => $this->updated_at,
         ];
     }
 }
