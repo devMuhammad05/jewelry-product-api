@@ -37,7 +37,10 @@ final class CollectionController extends ApiController
      */
     public function show(string $slug, GetCollectionProductsAction $action): JsonResponse
     {
-        $collection = Collection::where('slug', $slug)->first();
+        $collection = QueryBuilder::for(Collection::class)
+            ->where('slug', $slug)
+            ->allowedIncludes(['children'])
+            ->first();
 
         if (! $collection) {
             return $this->errorResponse('Collection not found.', 404);

@@ -25,20 +25,15 @@ final class GetCategoryProductsAction
         $productQuery = Product::query()->forCategory($category->id);
 
         // Apply attribute filters using Spatie Query Builder
-        // Filter the request to only allow product-specific includes to avoid clashing with category includes
-        $request = request()->duplicate();
-        if ($request->has('include')) {
-            $allowed = ['variants', 'attributeValues', 'images'];
-            $includes = explode(',', (string) $request->input('include'));
-            $filtered = array_intersect($includes, $allowed);
-            $request->query->set('include', implode(',', $filtered));
+        $filters = request()->query('filter', []);
+        $allowedFilters = [];
+        foreach (array_keys($filters) as $filterName) {
+            $allowedFilters[] = AllowedFilter::custom((string) $filterName, new AttributeValuesFilter());
         }
 
-        $filteredQuery = QueryBuilder::for($productQuery, $request)
-            ->allowedFilters([
-                AllowedFilter::custom('attributes', new AttributeValuesFilter),
-            ])
-            ->allowedIncludes(['variants', 'attributeValues', 'images'])
+        $filteredQuery = QueryBuilder::for($productQuery)
+            ->allowedFilters($allowedFilters)
+            ->allowedIncludes(['variants', 'attributeValues'])
             ->allowedSorts(['name', 'base_price', 'created_at']);
 
         // Get the underlying Eloquent builder for facets

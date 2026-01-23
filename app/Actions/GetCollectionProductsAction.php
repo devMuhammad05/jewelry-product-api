@@ -24,11 +24,15 @@ final class GetCollectionProductsAction
         $productQuery = Product::query()->forCollection($collection->id);
 
         // Apply attribute filters using Spatie Query Builder
+        $filters = request()->query('filter', []);
+        $allowedFilters = [];
+        foreach (array_keys($filters) as $filterName) {
+            $allowedFilters[] = AllowedFilter::custom((string) $filterName, new AttributeValuesFilter());
+        }
+
         $filteredQuery = QueryBuilder::for($productQuery)
-            ->allowedFilters([
-                AllowedFilter::custom('attributes', new AttributeValuesFilter),
-            ])
-            ->allowedIncludes(['variants', 'attributeValues', 'images'])
+            ->allowedFilters($allowedFilters)
+            ->allowedIncludes(['variants', 'attributeValues'])
             ->allowedSorts(['name', 'base_price', 'created_at']);
 
         // Get the underlying Eloquent builder for facets

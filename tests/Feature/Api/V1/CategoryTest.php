@@ -39,8 +39,8 @@ describe('Category API', function () {
         $response = $this->getJson("/api/v1/categories/{$parent->slug}?include=children");
 
         $response->assertStatus(200)
-            ->assertJsonPath('data.name', $parent->name)
-            ->assertJsonCount(1, 'data.children');
+            ->assertJsonPath('data.category.name', $parent->name)
+            ->assertJsonCount(1, 'data.category.children');
     });
 
     test('it can show a category with its products', function () {
@@ -51,7 +51,7 @@ describe('Category API', function () {
         $response = $this->getJson("/api/v1/categories/{$category->slug}?include=products");
 
         $response->assertStatus(200)
-            ->assertJsonPath('data.name', $category->name)
+            ->assertJsonPath('data.category.name', $category->name)
             ->assertJsonCount(1, 'data.products')
             ->assertJsonPath('data.products.0.name', $product->name);
     });
@@ -67,7 +67,7 @@ describe('Category API', function () {
         $response = $this->getJson("/api/v1/categories/{$category->slug}");
 
         $response->assertStatus(200)
-            ->assertJsonPath('data.name', $category->name)
+            ->assertJsonPath('data.category.name', $category->name)
             ->assertJsonCount(1, 'data.collections')
             ->assertJsonPath('data.collections.0.name', $collection->name);
     });

@@ -27,7 +27,8 @@ GET /api/v1/categories/rings
       "id": 1,
       "name": "Rings",
       "slug": "rings",
-      "description": "Beautiful rings collection"
+      "description": "Beautiful rings collection",
+      "image_url": "..."
     },
     "products": [
       {
@@ -48,38 +49,7 @@ GET /api/v1/categories/rings
             "id": 1,
             "value": "Gold",
             "slug": "gold",
-            "products_count": 45
-          },
-          {
-            "id": 2,
-            "value": "Platinum",
-            "slug": "platinum",
-            "products_count": 23
-          },
-          {
-            "id": 3,
-            "value": "Silver",
-            "slug": "silver",
-            "products_count": 12
-          }
-        ]
-      },
-      {
-        "id": 2,
-        "name": "Stone Shape",
-        "slug": "stone_shape",
-        "values": [
-          {
-            "id": 5,
-            "value": "Round",
-            "slug": "round",
-            "products_count": 67
-          },
-          {
-            "id": 6,
-            "value": "Princess",
-            "slug": "princess",
-            "products_count": 34
+            "product_count": 45
           }
         ]
       }

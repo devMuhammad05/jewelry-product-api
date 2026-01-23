@@ -4,6 +4,7 @@
 
 - **Categories:** `http://127.0.0.1:8000/api/v1/categories/{slug}`
 - **Collections:** `http://127.0.0.1:8000/api/v1/collections/{slug}`
+- **Products:** `http://127.0.0.1:8000/api/v1/products/{slug}`
 
 ---
 
@@ -51,7 +52,17 @@ Returns products that are BOTH Platinum AND have Round stone shape.
 
 ---
 
-### 5. With Pagination
+### 5. Product Details
+
+```
+http://127.0.0.1:8000/api/v1/products/classic-love-ring?include=variants,attributeValues,categories,collections
+```
+
+Returns a single product by slug with all selected relationships loaded.
+
+---
+
+### 6. With Pagination
 
 ```
 http://127.0.0.1:8000/api/v1/collections/love-collection?filter[metal]=platinum&page=2&per_page=12
@@ -61,7 +72,7 @@ Returns page 2 with 12 products per page.
 
 ---
 
-### 6. With Sorting
+### 7. With Sorting
 
 ```
 http://127.0.0.1:8000/api/v1/collections/love-collection?filter[metal]=platinum&sort=-base_price
@@ -78,44 +89,13 @@ http://127.0.0.1:8000/api/v1/collections/love-collection?filter[metal]=platinum&
 
 ---
 
-### 7. With Related Data (Includes)
+### 8. With Related Data (Includes)
 
 ```
-http://127.0.0.1:8000/api/v1/collections/love-collection?filter[metal]=platinum&include=variants,attributeValues,images
+http://127.0.0.1:8000/api/v1/collections/love-collection?filter[metal]=platinum&include=variants,attributeValues
 ```
 
-Eagerly loads variants, attribute values, and images with each product.
-
----
-
-### 8. Complete Example (All Parameters)
-
-```
-http://127.0.0.1:8000/api/v1/collections/love-collection?filter[metal]=gold,platinum&filter[stone_shape]=round&filter[stone_type]=diamond&sort=-base_price&page=1&per_page=24&include=variants,images
-```
-
-This query:
-
-- Filters by Gold OR Platinum metal
-- AND Round stone shape
-- AND Diamond stone type
-- Sorts by price high to low
-- Shows page 1 with 24 items
-- Includes variants and images
-
----
-
-## Category Examples
-
-Same syntax works for categories:
-
-```
-http://127.0.0.1:8000/api/v1/categories/rings?filter[metal]=platinum
-```
-
-```
-http://127.0.0.1:8000/api/v1/categories/rings?filter[metal]=gold,platinum&filter[stone_shape]=round&sort=base_price
-```
+Eagerly loads variants and attribute values with each product.
 
 ---
 
@@ -129,53 +109,34 @@ http://127.0.0.1:8000/api/v1/categories/rings?filter[metal]=gold,platinum&filter
 
 ---
 
-## Testing in Browser/Postman
-
-You can copy any of these URLs directly into your browser or Postman to test:
-
-### Test 1: Get all products in a collection
-
-```
-http://127.0.0.1:8000/api/v1/collections/love-collection
-```
-
-### Test 2: Filter by Platinum
-
-```
-http://127.0.0.1:8000/api/v1/collections/love-collection?filter[metal]=platinum
-```
-
-### Test 3: Filter by multiple metals
-
-```
-http://127.0.0.1:8000/api/v1/collections/love-collection?filter[metal]=gold,platinum,silver
-```
-
-### Test 4: Complex filtering
-
-```
-http://127.0.0.1:8000/api/v1/collections/love-collection?filter[metal]=platinum&filter[stone_shape]=round&sort=-base_price&per_page=10
-```
-
----
-
-## Expected Response Structure
+## Expected Response Structure (Category/Collection)
 
 ```json
 {
     "status": "success",
-    "message": "Collection details retrieved successfully.",
+    "message": "Category details retrieved successfully.",
     "data": {
-        "collection": {
+        "category": {
             "id": 1,
-            "name": "Love Collection",
-            "slug": "love-collection"
+            "name": "Rings",
+            "slug": "rings",
+            "description": "...",
+            "image_url": "...",
+            "children": []
         },
         "products": [
             {
                 "id": 1,
                 "name": "Platinum Love Ring",
+                "slug": "platinum-love-ring",
                 "base_price": "3500.00"
+            }
+        ],
+        "collections": [
+            {
+                "id": 1,
+                "name": "Love Collection",
+                "slug": "love-collection"
             }
         ],
         "facets": [
@@ -188,7 +149,7 @@ http://127.0.0.1:8000/api/v1/collections/love-collection?filter[metal]=platinum&
                         "id": 2,
                         "value": "Platinum",
                         "slug": "platinum",
-                        "products_count": 15
+                        "product_count": 15
                     }
                 ]
             }

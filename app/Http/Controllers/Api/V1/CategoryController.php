@@ -52,15 +52,7 @@ final class CategoryController extends ApiController
         return $this->successResponse(
             'Category details retrieved successfully.',
             [
-                'id' => $category->id,
-                'name' => $category->name,
-                'slug' => $category->slug,
-                'description' => $category->description,
-                'image_url' => $category->image_url,
-                'position' => $category->position,
-                'children' => $category->relationLoaded('children')
-                    ? CategoryResource::collection($category->children)->resolve()
-                    : null,
+                'category' => (new CategoryResource($category))->resolve(),
                 'products' => ProductResource::collection($result['products'])->resolve(),
                 'collections' => CollectionResource::collection($result['collections'])->resolve(),
                 'facets' => AttributeResource::collection($result['facets'])->resolve(),

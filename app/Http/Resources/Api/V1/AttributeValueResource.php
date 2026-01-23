@@ -23,7 +23,7 @@ final class AttributeValueResource extends JsonResource
             'value' => $this->value,
             'slug' => $this->slug,
             'hex_color' => $this->hex_color,
-            'product_count' => $this->whenNotNull($this->products_count),
+            'product_count' => $this->when(isset($this->resource->products_count), $this->resource->products_count),
         ];
     }
 }
