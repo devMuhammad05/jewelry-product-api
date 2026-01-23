@@ -18,8 +18,6 @@ return new class extends Migration
             $table->foreignId('cart_id')->constrained()->onDelete('cascade');
             $table->foreignId('variant_id')->constrained()->onDelete('cascade');
             $table->integer('quantity')->unsigned();
-            $table->decimal('price_snapshot', 12, 2);
-            $table->string('currency_snapshot', 3);
             $table->timestamps();
 
             $table->unique(['cart_id', 'variant_id']);

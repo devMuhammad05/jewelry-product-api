@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Api\V1\Auth\AuthController;
+use App\Http\Controllers\Api\V1\CartController;
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\CollectionController;
 use App\Http\Controllers\Api\V1\ProductController;
@@ -11,6 +12,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function (): void {
     Route::get('/', fn() => 'API is active');
+
+
+    // Auth Routes
+    Route::prefix('auth')->group(function (): void {
+        Route::post('/register', [AuthController::class, 'register']);
+        Route::post('/login', [AuthController::class, 'login']);
+
+        Route::middleware('auth:sanctum')->group(function (): void {
+            Route::post('/logout', [AuthController::class, 'logout']);
+            Route::get('/me', [AuthController::class, 'me']);
+        });
+    });
 
     // Categories
     Route::get('/categories', [CategoryController::class, 'index']);
@@ -23,15 +36,9 @@ Route::prefix('v1')->group(function (): void {
     // Products
     Route::get('/products/{slug}', [ProductController::class, 'show']);
 
-    // Auth Routes
-    Route::prefix('auth')->group(function (): void {
-
-        Route::post('/register', [AuthController::class, 'register']);
-        Route::post('/login', [AuthController::class, 'login']);
-
-        Route::middleware('auth:sanctum')->group(function (): void {
-            Route::post('/logout', [AuthController::class, 'logout']);
-            Route::get('/me', [AuthController::class, 'me']);
-        });
+    // Cart
+    Route::prefix('cart')->group(function (): void {
+        Route::get('/', [CartController::class, 'index']);
+        Route::post('/items', [CartController::class, 'store']);
     });
 });

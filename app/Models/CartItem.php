@@ -14,6 +14,12 @@ final class CartItem extends Model
     /** @use HasFactory<CartItemFactory> */
     use HasFactory;
 
+    protected $fillable = [
+        'cart_id',
+        'variant_id',
+        'quantity',
+    ];
+
     /**
      * @return BelongsTo<Cart, $this>
      */
