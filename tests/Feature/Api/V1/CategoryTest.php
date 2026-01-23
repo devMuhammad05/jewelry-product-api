@@ -67,7 +67,7 @@ describe('Category API', function () {
         $response = $this->getJson("/api/v1/categories/{$category->slug}");
 
         $response->assertStatus(200)
-            ->assertJsonPath('data.category.name', $category->name)
+            ->assertJsonPath('data.name', $category->name)
             ->assertJsonCount(1, 'data.collections')
             ->assertJsonPath('data.collections.0.name', $collection->name);
     });
