@@ -16,7 +16,7 @@ Controllers must be kept "thin" or "slim". They should serve strictly as an entr
 **Restrictions:**
 
 - Controllers **must not** contain business logic.
-- Controllers **must not** perform direct database queries (except for simple lookups if absolutely necessary, but prefer Actions/Repositories).
+- Controllers **must not** perform direct database queries (except for simple lookups if absolutely necessary, but prefer Actions).
 
 ## 2. Action Classes
 

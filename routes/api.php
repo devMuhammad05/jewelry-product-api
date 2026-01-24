@@ -7,10 +7,11 @@ use App\Http\Controllers\Api\V1\CartController;
 use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\CollectionController;
 use App\Http\Controllers\Api\V1\ProductController;
+use App\Http\Controllers\Api\V1\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function (): void {
-    Route::get('/', fn () => 'API is active');
+    Route::get('/', fn() => 'API is active');
 
     // Auth Routes
     Route::prefix('auth')->group(function (): void {
@@ -39,5 +40,12 @@ Route::prefix('v1')->group(function (): void {
         Route::get('/', [CartController::class, 'index']);
         Route::post('/items', [CartController::class, 'store']);
         Route::delete('/items/{variant_id}', [CartController::class, 'destroy']);
+    });
+
+    // Wishlist
+    Route::prefix('wishlist')->group(function (): void {
+        Route::get('/', [WishlistController::class, 'index']);
+        Route::post('/items', [WishlistController::class, 'store']);
+        Route::delete('/items/{variant_id}', [WishlistController::class, 'destroy']);
     });
 });

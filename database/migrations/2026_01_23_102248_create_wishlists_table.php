@@ -19,15 +19,10 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->uuid('guest_token')->nullable()->index();
             $table->string('name')->default('My Wishlist');
-            $table->boolean('is_default')->default(false);
-            $table->enum('visibility', array_column(WishlistVisibility::cases(), 'value'))
-                ->default(WishlistVisibility::Private->value);
-            $table->uuid('share_token')->nullable()->unique();
             $table->timestamp('expires_at')->nullable();
             $table->timestamps();
 
-            $table->unique(['user_id', 'is_default'], 'unique_default_wishlist')
-                ->where('is_default', true)
+            $table->unique(['user_id', 'guest_token'], 'unique_wishlist')
                 ->where('user_id', 'IS NOT NULL');
         });
     }

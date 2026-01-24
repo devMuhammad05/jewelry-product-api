@@ -16,6 +16,13 @@ final class Wishlist extends Model
     /** @use HasFactory<WishlistFactory> */
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'guest_token',
+        'name',
+        'expires_at',
+    ];
+
     /**
      * @return BelongsTo<User, $this>
      */
@@ -35,8 +42,6 @@ final class Wishlist extends Model
     protected function casts(): array
     {
         return [
-            'is_default' => 'boolean',
-            'visibility' => WishlistVisibility::class,
             'expires_at' => 'datetime',
         ];
     }

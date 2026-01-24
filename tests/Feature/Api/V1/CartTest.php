@@ -24,17 +24,20 @@ test('guest can add product to cart and receive a guest token', function () {
 
     $response->assertSuccessful();
     $response->assertJsonStructure([
+        'status',
         'message',
         'data' => [
-            'id',
+            'cart' => [
+                'id',
+                'guest_token',
+                'items',
+            ],
             'guest_token',
-            'items',
         ],
-        'guest_token',
     ]);
 
     $this->assertDatabaseHas('carts', [
-        'guest_token' => $response->json('guest_token'),
+        'guest_token' => $response->json('data.guest_token'),
     ]);
 
     $this->assertDatabaseHas('cart_items', [
@@ -55,7 +58,7 @@ test('guest can add product using an existing valid guest token', function () {
 
     $response->assertSuccessful();
 
-    expect($response->json('guest_token'))->toBe($cart->guest_token);
+    expect($response->json('data.guest_token'))->toBe($cart->guest_token);
 });
 
 test('guest request with non-existent token generates a new one', function () {
@@ -70,7 +73,7 @@ test('guest request with non-existent token generates a new one', function () {
 
     $response->assertSuccessful();
 
-    expect($response->json('guest_token'))->not->toBe($fakeToken);
+    expect($response->json('data.guest_token'))->not->toBe($fakeToken);
 });
 
 test('authenticated user can add product to cart', function () {

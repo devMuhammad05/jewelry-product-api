@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('wishlist_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('wishlist_id')->constrained()->onDelete('cascade');
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->foreignId('variant_id')->constrained()->onDelete('cascade');
             $table->text('note')->nullable();
             $table->string('priority')->nullable(); // Low, Medium, High
             $table->timestamps();
 
-            $table->unique(['wishlist_id', 'product_id']);
+            $table->unique(['wishlist_id', 'variant_id']);
         });
     }
 
