@@ -16,6 +16,7 @@ final class Collection extends Model
 {
     /** @use HasFactory<CollectionFactory> */
     use HasFactory;
+
     use HasSlug;
 
     protected string $slugSource = 'name';

@@ -16,6 +16,7 @@ final class Category extends Model
 {
     /** @use HasFactory<CategoryFactory> */
     use HasFactory;
+
     use HasSlug;
 
     protected string $slugSource = 'name';

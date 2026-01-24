@@ -6,7 +6,6 @@ namespace App\Actions\Wishlist;
 
 use App\Models\Wishlist;
 use Illuminate\Contracts\Cache\Repository;
-use Illuminate\Support\Str;
 
 final readonly class GetWishlistAction
 {

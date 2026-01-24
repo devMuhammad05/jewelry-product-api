@@ -15,6 +15,7 @@ final class AttributeValue extends Model
 {
     /** @use HasFactory<AttributeValueFactory> */
     use HasFactory;
+
     use HasSlug;
 
     protected string $slugSource = 'value';

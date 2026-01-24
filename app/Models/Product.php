@@ -17,6 +17,7 @@ final class Product extends Model
 {
     /** @use HasFactory<ProductFactory> */
     use HasFactory;
+
     use HasSlug;
 
     protected string $slugSource = 'name';

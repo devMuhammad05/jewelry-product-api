@@ -51,7 +51,7 @@ final class WishlistController extends ApiController
                 'Product added to wishlist successfully.',
                 new WishlistResource($result['wishlist'])
             );
-        } catch (InvalidArgumentException | ModelNotFoundException $e) {
+        } catch (InvalidArgumentException|ModelNotFoundException $e) {
             return $this->validationErrorResponse($e->getMessage());
         }
     }

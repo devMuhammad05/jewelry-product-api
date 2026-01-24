@@ -79,7 +79,7 @@ test('authenticated user can get wishlist', function () {
         ->getJson('/api/v1/wishlist');
 
     $response->assertSuccessful();
-    $response->assertJsonPath('data.id', fn($id) => !is_null($id));
+    $response->assertJsonPath('data.id', fn ($id) => ! is_null($id));
 });
 
 test('authenticated user can add item to wishlist', function () {

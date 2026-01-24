@@ -11,7 +11,7 @@ use App\Http\Controllers\Api\V1\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function (): void {
-    Route::get('/', fn() => 'API is active');
+    Route::get('/', fn () => 'API is active');
 
     // Auth Routes
     Route::prefix('auth')->group(function (): void {

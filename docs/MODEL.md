@@ -841,6 +841,41 @@ Tracks coupon usage by specific users to enforce per-user limits.
 
 ---
 
+# 12. Address
+
+**Purpose**  
+Stores shipping and billing information for users.
+
+**Rules**
+
+- Each user can have multiple addresses.
+- Only one address can be marked as `default` per user.
+- Addresses are required for checkout and shipping calculations.
+
+**Fields**
+
+- `id`
+- `user_id`
+- `label` (e.g., Home, Work, Office)
+- `first_name`
+- `last_name`
+- `phone`
+- `address_line_1`
+- `address_line_2` (nullable)
+- `country`
+- `city`
+- `state`
+- `postal_code` (nullable)
+- `is_default` (boolean)
+- `created_at`
+- `updated_at`
+
+**Relationships**
+
+- belongsTo → User
+
+---
+
 ## Pivot Table Invariants
 
 - Pivot tables must never contain:
@@ -873,3 +908,4 @@ coupon_variant → targeted discount (Variant)
 coupon_category → targeted discount (Category)
 coupon_collection → targeted discount (Collection)
 coupon_user → track user usage
+address → shipping & billing

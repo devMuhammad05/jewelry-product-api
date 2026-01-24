@@ -8,7 +8,6 @@ use App\Models\Variant;
 use App\Models\Wishlist;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Support\Str;
-use InvalidArgumentException;
 
 final readonly class AddProductToWishlistAction
 {
@@ -29,7 +28,7 @@ final readonly class AddProductToWishlistAction
         $wishlist->items()->firstOrCreate([
             'variant_id' => $variantId,
         ]);
-        
+
         $cacheKey = $userId ? "wishlist:user:{$userId}" : "wishlist:guest:{$wishlist->guest_token}";
         $this->cacheManager->forget($cacheKey);
 
