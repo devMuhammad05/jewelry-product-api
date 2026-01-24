@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Enums\UserRole;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 final class DatabaseSeeder extends Seeder
 {
@@ -20,9 +21,19 @@ final class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
+            'first_name' => 'Admin',
+            'last_name' => 'User',
+            'email' => 'admin@example.com',
+            'password' => 'admin',
+            'role' => UserRole::Admin,
+        ]);
+
+        User::factory()->create([
             'first_name' => 'Test',
             'last_name' => 'User',
             'email' => 'test@example.com',
+            'password' => 'password',
+            'role' => \App\Enums\UserRole::User,
         ]);
 
         $this->call([

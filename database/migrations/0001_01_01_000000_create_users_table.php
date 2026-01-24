@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Enums\UserRole;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -17,8 +18,9 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->enum('title', ['MR', 'MRS', 'MISS'])->nullable(); // MR, MRS, MISS
+            $table->string('title')->nullable(); // MR, MRS, MISS
             $table->string('email')->unique();
+            $table->string('role')->default(UserRole::User->value);
             $table->timestamp('email_verified_at')->nullable();
             $table->date('dob')->nullable();
             $table->string('password');

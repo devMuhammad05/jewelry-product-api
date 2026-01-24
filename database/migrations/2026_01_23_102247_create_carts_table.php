@@ -18,9 +18,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->uuid('guest_token')->nullable()->index();
-            $table->enum('status', array_column(CartStatus::cases(), 'value'))
-                ->default(CartStatus::Active->value)
-                ->index();
+            $table->string('status')->default(CartStatus::Active->value)->index();
             $table->timestamp('expires_at')->nullable();
             $table->timestamps();
 
