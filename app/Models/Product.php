@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Traits\HasSlug;
 use Database\Factories\ProductFactory;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
@@ -16,6 +17,9 @@ final class Product extends Model
 {
     /** @use HasFactory<ProductFactory> */
     use HasFactory;
+    use HasSlug;
+
+    protected string $slugSource = 'name';
 
     /** @return HasMany<Variant, $this> */
     public function variants(): HasMany

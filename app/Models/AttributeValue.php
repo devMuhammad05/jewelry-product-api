@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Traits\HasSlug;
 use Database\Factories\AttributeValueFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,6 +15,9 @@ final class AttributeValue extends Model
 {
     /** @use HasFactory<AttributeValueFactory> */
     use HasFactory;
+    use HasSlug;
+
+    protected string $slugSource = 'value';
 
     /** @return BelongsTo<Attribute, $this> */
     public function attribute(): BelongsTo

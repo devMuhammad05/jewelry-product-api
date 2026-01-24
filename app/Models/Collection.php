@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Traits\HasSlug;
 use Database\Factories\CollectionFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,6 +16,9 @@ final class Collection extends Model
 {
     /** @use HasFactory<CollectionFactory> */
     use HasFactory;
+    use HasSlug;
+
+    protected string $slugSource = 'name';
 
     /** @return BelongsToMany<Product, $this> */
     public function products(): BelongsToMany
