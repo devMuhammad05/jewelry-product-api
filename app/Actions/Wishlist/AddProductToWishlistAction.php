@@ -24,17 +24,12 @@ final readonly class AddProductToWishlistAction
     ): array {
         $wishlist = $this->getOrCreateWishlist($userId, $guestToken);
 
-        // 1. Validate variant existence
         Variant::findOrFail($variantId);
 
-        // 2. Add item if not exists (idempotency by unique constraint or check)
-        // We use firstOrCreate to ensure we don't duplicate. 
-        // Although DB has unique constraint, this prevents exception.
         $wishlist->items()->firstOrCreate([
             'variant_id' => $variantId,
         ]);
-
-        // 3. Invalidate cache
+        
         $cacheKey = $userId ? "wishlist:user:{$userId}" : "wishlist:guest:{$wishlist->guest_token}";
         $this->cacheManager->forget($cacheKey);
 

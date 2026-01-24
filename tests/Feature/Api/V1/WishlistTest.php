@@ -41,12 +41,10 @@ test('guest can add product to wishlist', function () {
         'status',
         'message',
         'data' => [
-            'wishlist' => [
-                'id',
-                'guest_token',
-                'items',
-            ],
+            'id',
             'guest_token',
+            'name',
+            'items',
         ],
     ]);
 
