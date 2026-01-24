@@ -23,9 +23,9 @@ final class DatabaseSeeder extends Seeder
         User::factory()->create([
             'first_name' => 'Admin',
             'last_name' => 'User',
-            'email' => 'admin@example.com',
-            'password' => 'admin',
             'role' => UserRole::Admin,
+            'email' => config('admin.email'),
+            'password' => 'admin',
         ]);
 
         User::factory()->create([
@@ -33,7 +33,7 @@ final class DatabaseSeeder extends Seeder
             'last_name' => 'User',
             'email' => 'test@example.com',
             'password' => 'password',
-            'role' => \App\Enums\UserRole::User,
+            'role' => UserRole::User,
         ]);
 
         $this->call([
