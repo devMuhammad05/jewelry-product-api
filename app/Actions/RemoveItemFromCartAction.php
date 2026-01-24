@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
-use Illuminate\Contracts\Cache\Repository;
 use App\Enums\CartStatus;
 use App\Models\Cart;
+use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Support\Facades\Cache;
 
 final readonly class RemoveItemFromCartAction
 {
-    public function __construct(private Repository $cacheManager)
-    {
-    }
+    public function __construct(private Repository $cacheManager) {}
+
     /**
      * Execute the action to remove a product variant from the cart.
      */

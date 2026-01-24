@@ -4,19 +4,17 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
-use Illuminate\Contracts\Cache\Repository;
 use App\Enums\CartStatus;
 use App\Models\Cart;
 use App\Models\Variant;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 
 final readonly class AddProductToCartAction
 {
-    public function __construct(private Repository $cacheManager)
-    {
-    }
+    public function __construct(private Repository $cacheManager) {}
+
     /**
      * Execute the action to add a product variant to the cart.
      */

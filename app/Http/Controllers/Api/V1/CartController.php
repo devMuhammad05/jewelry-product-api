@@ -4,21 +4,20 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1;
 
-use Illuminate\Contracts\Routing\ResponseFactory;
 use App\Actions\AddProductToCartAction;
 use App\Actions\GetCartAction;
 use App\Actions\RemoveItemFromCartAction;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Api\V1\CartItemRequest;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
 
 final class CartController extends ApiController
 {
-    public function __construct(private readonly ResponseFactory $responseFactory)
-    {
-    }
+    public function __construct(private readonly ResponseFactory $responseFactory) {}
+
     public function index(Request $request, GetCartAction $action): JsonResponse
     {
         $cart = $action->execute(

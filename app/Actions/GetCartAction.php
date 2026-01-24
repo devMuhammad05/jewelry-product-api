@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
-use Illuminate\Contracts\Cache\Repository;
 use App\Enums\CartStatus;
 use App\Models\Cart;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Contracts\Cache\Repository;
 
 final readonly class GetCartAction
 {
-    public function __construct(private Repository $cacheManager)
-    {
-    }
+    public function __construct(private Repository $cacheManager) {}
+
     /**
      * Execute the action to get the cart for a user or guest token.
      */
