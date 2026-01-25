@@ -14,7 +14,7 @@ it('returns a custom json response for method not allowed on api routes', functi
     $response->assertStatus(405)
         ->assertJson([
             'status' => 'error',
-            'message' => "The POST method is not allowed for this endpoint.",
+            'message' => 'The POST method is not allowed for this endpoint.',
         ]);
 });
 
