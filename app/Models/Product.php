@@ -84,4 +84,16 @@ final class Product extends Model
             $q->whereIn('slug', $valueSlugs);
         });
     }
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'status' => \App\Enums\ProductStatus::class,
+        ];
+    }
 }

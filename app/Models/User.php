@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Contracts\Config\Repository;
+
 use App\Enums\UserRole;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasName;
@@ -33,15 +33,6 @@ final class User extends Authenticatable implements FilamentUser, HasName
         'password',
         'remember_token',
     ];
-    /**
-     * Create a new Eloquent model instance.
-     *
-     * @param  array<string, mixed>  $attributes
-     */
-    public function __construct(array $attributes = [], private readonly Repository $repository)
-    {
-        parent::__construct($attributes);
-    }
 
     /** @return HasMany<Cart, $this> */
     public function carts(): HasMany
@@ -91,7 +82,7 @@ final class User extends Authenticatable implements FilamentUser, HasName
         }
 
         if ($this->role === UserRole::Admin) {
-            return str_ends_with($this->email, $this->repository->get('admin.email')) && $this->hasVerifiedEmail();
+            return str_ends_with($this->email, config('admin.email')) && $this->hasVerifiedEmail();
         }
 
         return false;
