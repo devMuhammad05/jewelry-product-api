@@ -15,8 +15,12 @@ final class SubscribeRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'email' => ['required', 'email', 'max:255'],
+        return  [
+            'email' => [
+                'required',
+                'email:rfc,dns,spoof',
+                'max:255',
+            ],
         ];
     }
 }

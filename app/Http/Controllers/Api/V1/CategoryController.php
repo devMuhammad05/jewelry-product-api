@@ -75,7 +75,7 @@ final class CategoryController extends ApiController
             ->first();
 
         return $this->successResponse(
-            'Categories retrieved successfully.',
+            'Category retrieved successfully.',
             (new CategoryResource($category))
         );
     }
