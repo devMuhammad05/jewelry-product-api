@@ -1,14 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Api\V1;
 
-use App\Models\Enquiry;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Requests\Api\V1\StoreEnquiryRequest;
+use App\Models\Enquiry;
+use Illuminate\Http\Request;
 
-class EnquiryController extends ApiController
+final class EnquiryController extends ApiController
 {
     /**
      * Handle the incoming request.

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Users\Schemas;
 
 use App\Enums\UserRole;
@@ -9,7 +11,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
-class UserForm
+final class UserForm
 {
     public static function configure(Schema $schema): Schema
     {

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Actions\GetProductsAction;
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Resources\Api\V1\ProductResource;
 use App\Models\Product;
@@ -15,19 +16,9 @@ final class ProductController extends ApiController
     /**
      * Display a listing of the products.
      */
-    public function index(): JsonResponse
+    public function index(GetProductsAction $action): JsonResponse
     {
-        $query = QueryBuilder::for(Product::class)
-            ->allowedIncludes(['variants', 'categories', 'collections', 'attributeValues.attribute'])
-            ->allowedFilters(['status']);
-
-        $hasFeatured = Product::query()->where('is_featured', true)->exists();
-
-        if ($hasFeatured) {
-            $query->where('is_featured', true);
-        }
-
-        $products = $query->inRandomOrder()->paginate();
+        $products = $action->execute();
 
         return $this->successResponse(
             'Products retrieved successfully.',

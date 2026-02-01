@@ -36,15 +36,6 @@ describe('Product API', function () {
         $response = $this->getJson('/api/v1/products');
 
         $response->assertStatus(200)
-            ->assertJsonCount(10, 'data');
-    });
-
-    test('it can list all products with pagination', function () {
-        Product::factory()->count(15)->create();
-
-        $response = $this->getJson('/api/v1/products');
-
-        $response->assertStatus(200)
             ->assertJsonStructure([
                 'status',
                 'message',
@@ -55,12 +46,13 @@ describe('Product API', function () {
                         'slug',
                         'description',
                         'status',
+                        'is_featured',
                     ],
                 ],
                 'links',
                 'meta',
             ])
-            ->assertJsonCount(15, 'data');
+            ->assertJsonCount(10, 'data');
     });
 
     test('it can show a product by slug with all required details', function () {

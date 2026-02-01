@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace App\Actions\Addresses;
 
-use Illuminate\Database\DatabaseManager;
 use App\Models\Address;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\DatabaseManager;
 
 final readonly class StoreAddressAction
 {
-    public function __construct(private DatabaseManager $databaseManager)
-    {
-    }
+    public function __construct(private DatabaseManager $databaseManager) {}
+
     /**
      * @param  array<string, mixed>  $data
      */

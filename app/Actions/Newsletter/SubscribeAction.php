@@ -17,12 +17,13 @@ final readonly class SubscribeAction
         $subscriber = Subscriber::where('email', $email)->first();
 
         if ($subscriber) {
-            if (!$subscriber->is_active) {
+            if (! $subscriber->is_active) {
                 $subscriber->update([
                     'is_active' => true,
                     'last_active_at' => now(),
                 ]);
             }
+
             return $subscriber;
         }
 

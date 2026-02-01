@@ -40,10 +40,10 @@ final class CollectionController extends ApiController
     {
         $collection = QueryBuilder::for(Collection::class)
             ->where('slug', $slug)
-             ->allowedIncludes(['children', 'products'])
+            ->allowedIncludes(['children', 'products'])
             ->first();
 
-         return $this->successResponse(
+        return $this->successResponse(
             'Collection retrieved successfully.',
             (new CollectionResource($collection))
         );

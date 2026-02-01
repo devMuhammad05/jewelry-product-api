@@ -43,17 +43,17 @@ final class CollectionsTable
                 TextColumn::make('is_active')
                     ->label('Status')
                     ->badge()
-                    ->formatStateUsing(fn(bool $state): string => $state ? 'Active' : 'Inactive')
-                    ->color(fn(bool $state): string => $state ? 'success' : 'gray')
-                    ->icon(fn(bool $state) => $state ? Heroicon::OutlinedCheckCircle : Heroicon::OutlinedXCircle)
+                    ->formatStateUsing(fn (bool $state): string => $state ? 'Active' : 'Inactive')
+                    ->color(fn (bool $state): string => $state ? 'success' : 'gray')
+                    ->icon(fn (bool $state) => $state ? Heroicon::OutlinedCheckCircle : Heroicon::OutlinedXCircle)
                     ->sortable(),
 
                 TextColumn::make('is_featured')
                     ->label('Featured')
                     ->badge()
-                    ->formatStateUsing(fn(bool $state): string => $state ? 'Featured' : 'Standard')
-                    ->color(fn(bool $state): string => $state ? 'warning' : 'gray')
-                    ->icon(fn(bool $state) => $state ? Heroicon::OutlinedStar : Heroicon::OutlinedTag)
+                    ->formatStateUsing(fn (bool $state): string => $state ? 'Featured' : 'Standard')
+                    ->color(fn (bool $state): string => $state ? 'warning' : 'gray')
+                    ->icon(fn (bool $state) => $state ? Heroicon::OutlinedStar : Heroicon::OutlinedTag)
                     ->sortable(),
 
                 TextColumn::make('created_at')
